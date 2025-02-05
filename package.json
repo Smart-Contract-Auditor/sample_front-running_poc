@@ -1,0 +1,16 @@
+{
+  "name": "how-to-simulate-front-running-with-hardhat",
+  "version": "1.0.0",
+  "description": "An example of how front running can be simulated for PoC purposes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Smart Contract Auditor",
+  "license": "ISC",
+  "devDependencies": {
+    "@openzeppelin/contracts": "5.2.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.18"
+  }
+}
